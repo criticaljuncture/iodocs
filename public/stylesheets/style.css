@@ -811,3 +811,11 @@ dd {
     page-break-after: avoid;
   }
 }
+
+table.parameters td.name {
+  width: 300px;
+}
+.multiple_select {
+  width: 200px;
+  overflow-x: auto;
+}
