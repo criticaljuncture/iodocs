@@ -276,7 +276,8 @@ function processRequest(req, res, next) {
     };
 
     var reqQuery = req.body,
-        params = reqQuery.params || {},
+        params = {},
+        rawParams = reqQuery.params || {},
         methodURL = reqQuery.methodUri,
         httpMethod = reqQuery.httpMethod,
         apiKey = reqQuery.apiKey,
@@ -286,19 +287,19 @@ function processRequest(req, res, next) {
         key = req.sessionID + ':' + apiName;
 
     // Replace placeholders in the methodURL with matching params
-    for (var param in params) {
-        if (params.hasOwnProperty(param)) {
-            if (params[param] !== '') {
+    for (var param in rawParams) {
+        if (rawParams.hasOwnProperty(param)) {
+            if (rawParams[param] !== '') {
                 // URL params are prepended with ":"
                 var regx = new RegExp(':' + param);
 
                 // If the param is actually a part of the URL, put it in the URL and remove the param
                 if (!!regx.test(methodURL)) {
-                    methodURL = methodURL.replace(regx, params[param]);
-                    delete params[param]
+                    methodURL = methodURL.replace(regx, rawParams[param]);
                 }
-            } else {
-                delete params[param]; // Delete blank params
+                else {
+                    params[decodeURIComponent(param)] = rawParams[param]
+                }
             }
         }
     }
