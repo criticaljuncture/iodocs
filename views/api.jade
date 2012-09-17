@@ -117,12 +117,22 @@ ul
                                                                            option(value=choice, selected=true) #{choice}
                                                                    - else
                                                                            option(value=choice) #{choice}
+                                                      - else if (parameter.Type == 'multiple')
+                                                           div.multiple_select
+                                                             select(name='params[' + encodeURIComponent(parameter.Name) + ']', placeholder=className, multiple='multiple')
+                                                              - if (parameter.Default =='')
+                                                                      option(value='') 
+                                                              - each choice in parameter.EnumeratedList
+                                                                  - if (parameter.Default ==choice)
+                                                                          option(value=choice, selected=true) #{choice}
+                                                                  - else
+                                                                          option(value=choice) #{choice}
                                                       - else
                                                           input(name='params[' + encodeURIComponent(parameter.Name) + ']', value=parameter.Default, placeholder=className)
                                                   td.type=parameter.Type
                                                   td.description
                                                       p=parameter.Description || 'No description'
-                                                      - if (parameter.Type =='enumerated' && parameter.EnumeratedDescription)
+                                                      - if (parameter.EnumeratedDescription)
                                                           dl.clearfix
                                                               - each description, choice in parameter.EnumeratedDescription
                                                                   dt #{choice}
