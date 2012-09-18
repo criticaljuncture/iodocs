@@ -1,5 +1,5 @@
 {
-    "federal_register": {
+    "v1": {
        "name": "Federal Register API",
        "protocol": "https",
        "baseURL": "www.federalregister.gov",
