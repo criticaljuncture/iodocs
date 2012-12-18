@@ -73,7 +73,7 @@
           ]
         },
         {
-          "Synopsis": "Fetch a single Federal Register article",
+          "Synopsis": "Fetch multiple Federal Register articles",
           "HTTPMethod": "GET",
           "RequiresOAuth": "N",
           "MethodName": "multi-get",
