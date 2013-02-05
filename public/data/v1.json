@@ -66,6 +66,7 @@
                 "title",
                 "toc_doc",
                 "toc_subject",
+                "topics",
                 "type",
                 "volume"
               ]
@@ -142,6 +143,7 @@
                 "title",
                 "toc_doc",
                 "toc_subject",
+                "topics",
                 "type",
                 "volume"
               ]
@@ -218,6 +220,7 @@
                 "title",
                 "toc_doc",
                 "toc_subject",
+                "topics",
                 "type",
                 "volume"
               ]
