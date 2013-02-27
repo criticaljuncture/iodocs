@@ -854,17 +854,17 @@
               "Name": "conditions[type][]",
               "Description": "Document type",
               "EnumeratedDescription": {
-                "prorule": "Proposed Rule",
-                "notice": "Notice",
-                "presdocu": "Presidential Document",
-                "rule": "Final Rule"
+                "NOTICE": "Notice",
+                "PRESDOCU": "Presidential Document",
+                "RULE": "Final Rule",
+                "PRORULE": "Proposed Rule"
               },
               "Type": "multiple",
               "EnumeratedList": [
-                "rule",
-                "prorule",
-                "notice",
-                "presdocu"
+                "RULE",
+                "PRORULE",
+                "NOTICE",
+                "PRESDOCU"
               ]
             },
             {
@@ -1669,17 +1669,17 @@
               "Name": "conditions[type][]",
               "Description": "Document type",
               "EnumeratedDescription": {
-                "prorule": "Proposed Rule",
-                "notice": "Notice",
-                "presdocu": "Presidential Document",
-                "rule": "Final Rule"
+                "NOTICE": "Notice",
+                "PRESDOCU": "Presidential Document",
+                "RULE": "Final Rule",
+                "PRORULE": "Proposed Rule"
               },
               "Type": "multiple",
               "EnumeratedList": [
-                "rule",
-                "prorule",
-                "notice",
-                "presdocu"
+                "RULE",
+                "PRORULE",
+                "NOTICE",
+                "PRESDOCU"
               ]
             },
             {
