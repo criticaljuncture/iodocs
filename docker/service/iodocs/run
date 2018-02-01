@@ -1,0 +1,6 @@
+#!/bin/sh
+cd /home/app
+
+envsubst '$$IODOCS_ADDRESS $$IODOCS_PORT $$IODOCS_SESSION_SECRET $$REDIS_PORT_6379_TCP_ADDR $$REDIS_PORT_6379_TCP_PORT' < /home/app/config.json.tmpl > /home/app/config.json
+
+exec /sbin/setuser app node app.js
