@@ -50,21 +50,22 @@ try {
 //
 var defaultDB = '0';
 var db;
+if(config.redis) {
+  if (process.env.REDISTOGO_URL) {
+      var rtg   = require("url").parse(process.env.REDISTOGO_URL);
+      db = require("redis").createClient(rtg.port, rtg.hostname);
+      db.auth(rtg.auth.split(":")[1]);
+  } else {
+      db = redis.createClient(config.redis.port, config.redis.host);
+      db.auth(config.redis.password);
+  }
 
-if (process.env.REDISTOGO_URL) {
-    var rtg   = require("url").parse(process.env.REDISTOGO_URL);
-    db = require("redis").createClient(rtg.port, rtg.hostname);
-    db.auth(rtg.auth.split(":")[1]);
-} else {
-    db = redis.createClient(config.redis.port, config.redis.host);
-    db.auth(config.redis.password);
+  db.on("error", function(err) {
+      if (config.debug) {
+           console.log("Error " + err);
+      }
+  });
 }
-
-db.on("error", function(err) {
-    if (config.debug) {
-         console.log("Error " + err);
-    }
-});
 
 //
 // Load API Configs
@@ -94,6 +95,8 @@ app.configure(function() {
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(express.cookieParser());
+
+  if(config.redis) {
     app.use(express.session({
         secret: config.sessionSecret,
         store:  new RedisStore({
@@ -103,6 +106,11 @@ app.configure(function() {
             'maxAge': 1209600000
         })
     }));
+  } else {
+    app.use(express.session({
+      secret: config.sessionSecret
+    }));
+  }
 
     app.use(app.router);
 
@@ -347,7 +355,7 @@ function processRequest(req, res, next) {
                     console.log(apiSecret);
                     console.log(accessToken);
                     console.log(accessTokenSecret);
-                    
+
                     var oa = new OAuth(apiConfig.oauth.requestURL || null,
                                        apiConfig.oauth.accessURL || null,
                                        apiKey || null,
@@ -626,7 +634,7 @@ app.dynamicHelpers({
                     req.params.api = pathName;
                 }
             });
-        }       
+        }
         // If the cookie says we're authed for this particular API, set the session to authed as well
         if (req.params.api && req.session[req.params.api] && req.session[req.params.api]['authed']) {
             req.session['authed'] = true;
